@@ -28,6 +28,21 @@ const pacientesSchema = mongoose.Schema(
         medicina: {
             type: String,
             required: true
+        },
+
+        cita: {
+            type: Date,
+            required: false
+        },
+
+        correo: {
+            type: String,
+            required: true
+        },
+
+        password: {
+            type: String,
+            required: true
         }
     }
 
