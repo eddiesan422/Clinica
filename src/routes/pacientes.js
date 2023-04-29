@@ -26,11 +26,19 @@ router.get("/pacientes/:", (req, res) => {
     const { citas } = req.body
 
     pacientesSchema.findOne({ citas })
-        .then(cita =>{
-            if(cita){
-                res.json({message: "Usted tiene una cita el día: "+cita})
+        .then(cita => {
+            if (cita) {
+                res.json({ message: "Usted tiene una cita el día: " + cita })
             }
         })
-        .catch((error) => req.jason({message: error}));
+        .catch((error) => req.jason({ message: error }));
 
+})
+
+router.put("/pacientes/:id", (req, res) => {
+    const { id } = req.params;
+    const { nombre, edad, telefono, historial, medicina, cita, correo, password } = req.body;
+    pacientesSchema.updateOne({ _id: id }, {
+        $set: { nombre, edad, telefono, historial, medicina, cita, correo, password }
+    }).then((data) => res.json(data)).catch((error) => res.json({ mensaje: error }));
 })
