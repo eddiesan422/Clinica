@@ -42,3 +42,8 @@ router.put("/pacientes/:id", (req, res) => {
         $set: { nombre, edad, telefono, historial, medicina, cita, correo, password }
     }).then((data) => res.json(data)).catch((error) => res.json({ mensaje: error }));
 })
+
+router.delete("/pacientes/:id", (req, res) => {
+    const { id } = req.params;
+    pacientesSchema.deleteOne({ _id: id }).then((data) => res.json(data)).catch((error) => res.json({ mensaje: error }));
+});
