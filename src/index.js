@@ -5,7 +5,9 @@ const port = 3000;
 const sesionRoutes = require("./routes/sesion");
 const citasRoutes = require("./routes/citas");
 const usuariosRoutes = require("./routes/usuarios")
-const medicinasRoutes = require("./routes/medicinas") // importa las rutas de sesiones
+const medicinasRoutes = require("./routes/medicinas")
+const doctoresRoutes = require("./routes/doctor")
+const pacientesRoutes = require("./routes/pacientes") // importa las rutas de sesiones
 const mongoose = require("mongoose");
 require('dotenv').config();
 app.use(parser.urlencoded({ extended: false })); //permite leer los datos que vienen en la petición
@@ -15,6 +17,8 @@ app.use("/api", sesionRoutes); // usa "sesionRoutes" en lugar de "librosRoutes"
 app.use("/api", citasRoutes);
 app.use("/api", usuariosRoutes);
 app.use("/api", medicinasRoutes);
+app.use("/api", doctoresRoutes);
+app.use("/api", pacientesRoutes);
 app.use(express.json());
 //Conexión a la base de datos
 mongoose
