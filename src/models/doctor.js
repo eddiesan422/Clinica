@@ -39,3 +39,5 @@ const doctorSchema = mongoose.Schema(
     //Aquí agregué unas cosas que creo son fundamentales con el paciente, tanto el nombre, documento y así
     //esto puede cambiar si así lo quieren
 )
+
+module.exports = mongoose.model('doctor', doctorSchema);
