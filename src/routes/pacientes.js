@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router(); //manejador de rutas de express
-const pacientesSchema = require("../models/pacientes.js");
+const pacientesSchema = require("../models/pacientes");
 
 //Nuevo paciente
 
