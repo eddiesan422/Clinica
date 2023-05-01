@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Usuario = require('../models/usuarios');
+const usuarioSchema = require('../models/usuarios');
 
 // CREATE - Crear un nuevo usuario
-router.post('/', async (req, res) => {
+router.post('/usuarios', async (req, res) => {
   const { nombres, apellidos, edad, correo, password } = req.body;
 
   try {
-    const usuario = new Usuario({ nombres, apellidos, edad, correo, password });
+    const usuario = new usuarioSchema({ nombres, apellidos, edad, correo, password });
     await usuario.save();
     res.status(201).json(usuario);
   } catch (error) {
@@ -17,9 +17,9 @@ router.post('/', async (req, res) => {
 });
 
 // READ - Obtener todos los usuarios
-router.get('/', async (req, res) => {
+router.get('/usuarios', async (req, res) => {
   try {
-    const usuarios = await Usuario.find();
+    const usuarios = await usuarioSchema.find();
     res.json(usuarios);
   } catch (error) {
     console.log(error);
@@ -28,11 +28,11 @@ router.get('/', async (req, res) => {
 });
 
 // READ - Obtener un usuario por ID
-router.get('/:id', async (req, res) => {
+router.get('/usuarios/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    const usuario = await Usuario.findById(id);
+    const usuario = await usuarioSchema.findById(id);
     if (!usuario) {
       return res.status(404).send('No se encontró el usuario');
     }
@@ -44,11 +44,11 @@ router.get('/:id', async (req, res) => {
 });
 
 // UPDATE - Actualizar un usuario por ID
-router.put('/:id', async (req, res) => {
+router.put('/usuarios/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    let usuario = await Usuario.findById(id);
+    let usuario = await usuarioSchema.findById(id);
     if (!usuario) {
       return res.status(404).send('No se encontró el usuario');
     }
@@ -62,15 +62,15 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE - Eliminar un usuario por ID
-router.delete('/:id', async (req, res) => {
+router.delete('/usuarios/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    const usuario = await Usuario.findById(id);
+    const usuario = await usuarioSchema.findById(id);
     if (!usuario) {
       return res.status(404).send('No se encontró el usuario');
     }
-    await usuario.remove();
+    await usuarioSchema.deleteOne({_id: id});
     res.json({ mensaje: 'Usuario eliminado correctamente' });
   } catch (error) {
     console.log(error);

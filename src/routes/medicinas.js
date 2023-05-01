@@ -3,7 +3,7 @@ const router = express.Router();
 const Medicina = require('../models/medicinas');
 
 // CREATE - Crear una nueva medicina
-router.post('/', async (req, res) => {
+router.post('/medicinas', async (req, res) => {
   const { nombre, descripcion, cantidad, precio } = req.body;
 
   try {
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 });
 
 // READ - Obtener todas las medicinas
-router.get('/', async (req, res) => {
+router.get('/medicinas', async (req, res) => {
   try {
     const medicinas = await Medicina.find();
     res.json(medicinas);
@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 });
 
 // READ - Obtener una medicina por ID
-router.get('/:id', async (req, res) => {
+router.get('/medicinas/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // UPDATE - Actualizar una medicina por ID
-router.put('/:id', async (req, res) => {
+router.put('/medicinas/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -62,7 +62,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE - Eliminar una medicina por ID
-router.delete('/:id', async (req, res) => {
+router.delete('/medicinas/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
