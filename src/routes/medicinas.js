@@ -3,7 +3,7 @@ const router = express.Router();
 const Medicina = require('../models/medicinas');
 
 // CREATE - Crear una nueva medicina
-router.post('/', async (req, res) => {
+router.post('/medicina', async (req, res) => {
   const { nombre, descripcion, cantidad, precio } = req.body;
 
   try {
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 });
 
 // READ - Obtener todas las medicinas
-router.get('/', async (req, res) => {
+router.get('/medicina', async (req, res) => {
   try {
     const medicinas = await Medicina.find();
     res.json(medicinas);
@@ -27,12 +27,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-// READ - Obtener una medicina por ID
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
+// READ - Obtener una medicina por nombre
+router.get('/medicina/:nombre', async (req, res) => {
+  const { nombre } = req.params;
 
   try {
-    const medicina = await Medicina.findById(id);
+    const medicina = await Medicina.findOne({nombre: nombre});
     if (!medicina) {
       return res.status(404).send('No se encontró la medicina');
     }
@@ -43,12 +43,14 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// UPDATE - Actualizar una medicina por ID
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
+// UPDATE - Actualizar una medicina por nombre
+router.put('/medicina/:nombre', async (req, res) => {
+  const { nombre } = req.params;
 
   try {
-    let medicina = await Medicina.findById(id);
+    let medicina = await Medicina.findOne({
+      nombre: nombre
+    });
     if (!medicina) {
       return res.status(404).send('No se encontró la medicina');
     }
@@ -61,12 +63,14 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE - Eliminar una medicina por ID
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
+// DELETE - Eliminar una medicina por nombre
+router.delete('/medicina/:nombre', async (req, res) => {
+  const { nombre } = req.params;
 
   try {
-    const medicina = await Medicina.findById(id);
+    const medicina = await Medicina.findOne({
+      nombre: nombre
+    });
     if (!medicina) {
       return res.status(404).send('No se encontró la medicina');
     }
