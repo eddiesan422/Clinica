@@ -1,15 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const Usuario = require('../models/usuarios');
+const Paciente = require('../models/pacientes');
 
 // CREATE - Crear un nuevo usuario
-router.post('/', async (req, res) => {
-  const { nombres, apellidos, edad, correo, password } = req.body;
+
+
+router.post('/usuario', async (req, res) => {
+  const {correo, password, tipoUsuario} = req.body;
 
   try {
-    const usuario = new Usuario({ nombres, apellidos, edad, correo, password });
+    if (tipoUsuario === 'paciente') {
+    
+    }else if (tipoUsuario === 'doctor') {
+
+    }else if (tipoUsuario === 'administrador') {
+      
+    }
+
+    const usuario = new Usuario({ correo, password,tipoUsuario});
     await usuario.save();
     res.status(201).json(usuario);
+
   } catch (error) {
     console.log(error);
     res.status(500).send('Hubo un error al crear el usuario');
@@ -17,7 +29,7 @@ router.post('/', async (req, res) => {
 });
 
 // READ - Obtener todos los usuarios
-router.get('/', async (req, res) => {
+router.get('/usuario', async (req, res) => {
   try {
     const usuarios = await Usuario.find();
     res.json(usuarios);
@@ -27,12 +39,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-// READ - Obtener un usuario por ID
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
+// READ - Obtener un usuario por correo
+router.get('/usuario/:correo', async (req, res) => {
+  const { correo } = req.params;
 
   try {
-    const usuario = await Usuario.findById(id);
+    const usuario = await Usuario.findOne({correo: correo});
     if (!usuario) {
       return res.status(404).send('No se encontró el usuario');
     }
@@ -43,12 +55,12 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// UPDATE - Actualizar un usuario por ID
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
+// UPDATE - Actualizar un usuario por correo
+router.put('/usuario/:correo', async (req, res) => {
+  const { correo } = req.params;
 
   try {
-    let usuario = await Usuario.findById(id);
+    let usuario = await Usuario.findOne({correo: correo});
     if (!usuario) {
       return res.status(404).send('No se encontró el usuario');
     }
@@ -61,12 +73,14 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE - Eliminar un usuario por ID
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
+// DELETE - Eliminar un usuario por correo
+router.delete('/usuario/:id', async (req, res) => {
+  const { correo } = req.params;
 
   try {
-    const usuario = await Usuario.findById(id);
+    const usuario = await Usuario.findOne({
+      correo: correo
+    });
     if (!usuario) {
       return res.status(404).send('No se encontró el usuario');
     }
