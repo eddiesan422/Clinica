@@ -1,17 +1,21 @@
 const express = require("express");
-const router = express.Router(); //manejador de rutas de express
-const sesionSchema = require("../models/Sesion");
-router.post("/login", (req, res) => {
-    const { correo, password } = req.body;
+const router = express.Router();
+const usuarioSchema = require("../models/usuarios");
 
-    sesionSchema.findOne({ correo, password })
-        .then(sesion => {
-            if (sesion) {
-                res.json({ message: "Inicio de sesión exitoso" });
-            } else {
-                res.status(401).json({ message: "Credenciales inválidas" });
-            }
-        })
-        .catch((error) => res.json({ message: error }));
+router.post("/sesion", async (req, res) => {
+  const { correo, password } = req.body;
+
+  try {
+    const usuario = await usuarioSchema.findOne({ correo, password });
+    if (usuario) {
+      res.json({ message: "Inicio de sesión exitoso" });
+    } else {
+      res.status(401).json({ message: "Credenciales inválidas" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Hubo un error al iniciar sesión" });
+  }
 });
-    module.exports = router;
+
+module.exports = router;
