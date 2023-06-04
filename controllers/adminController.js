@@ -11,7 +11,7 @@ adminCtrl.createAdmin = async (req, res) => {
       correo: adminData.correo,
       password: adminData.password,
     });
-  
+    newAdmin.password = await newAdmin.encryptPassword(newAdmin.password);
     try {
       await newAdmin.save();
       res.json({ status: "Administrador creado exitosamente" });

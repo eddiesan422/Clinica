@@ -16,7 +16,7 @@ pacienteCtrl.createPaciente = async (req, res) => {
       correo: pacienteData.correo,
       password: pacienteData.password,
     });
-  
+    newPaciente.password = await newPaciente.encryptPassword(newPaciente.password);
     try {
       await newPaciente.save();
       res.json({ status: "Paciente creado exitosamente" });

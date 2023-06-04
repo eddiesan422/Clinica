@@ -13,6 +13,7 @@ doctorCtrl.createDoctor = async (req, res) => {
     correo: doctorData.correo,
     password: doctorData.password,
   });
+newDoctor.password = await newDoctor.encryptPassword(newDoctor.password);
 
   try {
     await newDoctor.save();
@@ -22,6 +23,8 @@ doctorCtrl.createDoctor = async (req, res) => {
     res.status(500).json({ error: "Error al crear el doctor" });
   }
 };
+
+
 doctorCtrl.getDoctors = async (req, res) => {
     try {
       const doctors = await Doctor.find();
