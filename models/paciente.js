@@ -9,10 +9,7 @@ const medicinaSchema = mongoose.Schema(
         cantidad: { type: Number, required: true },
     }
 )
-        
-
-
-
+    
 
 const pacienteSchema = mongoose.Schema(
     {
@@ -21,7 +18,7 @@ const pacienteSchema = mongoose.Schema(
             required: true
         },
 
-        Apellidos: {
+        apellidos: {
             type: String,
             required: true
         },

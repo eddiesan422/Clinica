@@ -6,7 +6,7 @@ pacienteCtrl.createPaciente = async (req, res) => {
     const pacienteData = req.body;
     const newPaciente = new Paciente({
       nombres: pacienteData.nombres,
-      Apellidos: pacienteData.Apellidos,
+      apellidos: pacienteData.apellidos,
       edad: pacienteData.edad,
       telefono: pacienteData.telefono,
       historial: pacienteData.historial,

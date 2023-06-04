@@ -1,9 +1,7 @@
 const doctorCtrl = {};
 const Doctor = require("../models/doctor");
 const jwt = require("jsonwebtoken");
-let {token} = requsire("morgan");
-
-const Doctor = require("../models/doctor");
+let {token} = require("morgan");
 
 doctorCtrl.createDoctor = async (req, res) => {
   const doctorData = req.body;
