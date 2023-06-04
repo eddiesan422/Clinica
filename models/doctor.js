@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
 const doctorSchema = mongoose.Schema(
     {
         nombres: {
@@ -31,6 +32,11 @@ especialidad: {
     }
 
 )
+
+doctorSchema.methods.encryptPassword = async (password) => {
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
+};
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
 module.exports = Doctor;

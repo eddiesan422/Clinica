@@ -2,6 +2,7 @@ const pacienteCtrl = {};
 const Paciente = require("../models/paciente");
 const jwt = require("jsonwebtoken");
 let {token} = require("morgan");
+
 pacienteCtrl.createPaciente = async (req, res) => {
     const pacienteData = req.body;
     const newPaciente = new Paciente({
