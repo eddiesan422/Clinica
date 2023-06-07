@@ -1,14 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 
-const medicinaSchema = mongoose.Schema(
-    { 
-        nombre: { type: String, required: true },
-        descripcion: { type: String, required: true },
-        precio: { type: Number, required: true },
-        cantidad: { type: Number, required: true },
-    }
-)
     
 
 const pacienteSchema = mongoose.Schema(
@@ -38,7 +30,8 @@ const pacienteSchema = mongoose.Schema(
         },
 
         medicina: {
-          medicinaDescription:{ type: medicinaSchema, required: true},
+         type: String,
+         required: true
         },
 
         cita: {
